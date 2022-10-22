@@ -16,6 +16,8 @@ clock = pygame.time.Clock()
 test_font = pygame.font.Font('font/Pixelmania.ttf', 30)
 soft_blue = (148, 219, 255)
 
+speed = [2, 2]
+
 # regular display
 # to the left -> increase x
 # down -> increase y
@@ -23,7 +25,9 @@ sky_surface = pygame.image.load('graphics/Sky.png')
 ground_surface = pygame.image.load('graphics/ground.png')
 text_surface = test_font.render('MICHIRUN', False, soft_blue)
 
-enemie1_surface = pygame.image.load('graphics/cats/pixelCat.png')
+cat1_surface = pygame.image.load('graphics/cats/catGif.gif')
+
+cat1rect = cat1_surface.get_rect()
 
 # put color
 # test_surface.fill(soft_blue)
@@ -40,11 +44,19 @@ while True:
             # close any code (close the while)
             exit()
 
+    cat1rect = cat1rect.move(speed)
+    if cat1rect.left < 0 or cat1rect.right > width:
+        speed[0] = -speed[0]
+    if cat1rect.top < 0 or cat1rect.bottom > height:
+        speed[1] = -speed[1]
+
     # display the surface
     screen.blit(sky_surface, (0, 0))
     screen.blit(ground_surface, (0, 300))
     screen.blit(text_surface, (40, 30))
-    screen.blit(enemie1_surface, (200, 300))
+    screen.blit(cat1_surface, cat1rect)
+    #el michi rebota :D
+    pygame.display.flip()
 
     # draw all out elements
     # update everything
